@@ -138,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PedidoReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PedidoReducer */ "./context/pedidos/PedidoReducer.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../types */ "./types/index.js");
 
-var _jsxFileName = "C:\\Users\\Diego\\Desktop\\Optica optimus\\Optimus Front\\context\\pedidos\\PedidoState.js";
+var _jsxFileName = "C:\\Users\\Diego\\Desktop\\Opti\\Optimus Front\\context\\pedidos\\PedidoState.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -246,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/apollo */ "./config/apollo.js");
 /* harmony import */ var _context_pedidos_PedidoState__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/pedidos/PedidoState */ "./context/pedidos/PedidoState.js");
 
-var _jsxFileName = "C:\\Users\\Diego\\Desktop\\Optica optimus\\Optimus Front\\pages\\_app.js";
+var _jsxFileName = "C:\\Users\\Diego\\Desktop\\Opti\\Optimus Front\\pages\\_app.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 

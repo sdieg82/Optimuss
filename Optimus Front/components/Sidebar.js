@@ -37,11 +37,36 @@ const Sidebar = () => {
                         </a>
                     </Link>
                 </li>
+                <li className={router.pathname === "/proveedores" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/proveedores">
+                        <a className="text-white block">
+                        Proveedores
+                        </a>
+                    </Link>
+                </li>
+            </nav>
+
+            <div className="sm:mt-10">
+                <p className="text-white text-2xl font-black">Panel de Control</p>
+            </div>
+            <nav className="mt-5 list-none">
+                <li className={router.pathname === "/mejoresclientes" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/mejoresclientes">
+                        <a className="text-white block">
+                            Mejores Clientes
+                        </a>
+                    </Link>
+                    <li className={router.pathname === "/bajoStock" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/bajoStock">
+                        <a className="text-white block">
+                            BAJO STOCK
+                        </a>
+                    </Link>
+                </li>
+                </li>
             </nav>
 
            
-           
-
         </aside>
      );
 }

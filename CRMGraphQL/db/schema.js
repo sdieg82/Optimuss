@@ -33,6 +33,17 @@ const typeDefs = gql`
         telefono: String
         vendedor: ID
     }
+
+    type Proveedor {
+        id: ID
+        nombre: String
+        apellido: String
+        direccion: String
+        email: String
+        telefono: String
+    
+    }
+    
     
     type Pedido {
         id: ID
@@ -54,6 +65,11 @@ const typeDefs = gql`
     type TopCliente {
         total: Float
         cliente: [Cliente]
+    }
+
+    type productosbajos {
+       
+        producto: [Producto]
     }
 
     type TopVendedor {
@@ -84,6 +100,14 @@ const typeDefs = gql`
         nombre: String!
         apellido: String!
         empresa: String!
+        email: String!
+        telefono: String
+    }
+
+    input ProveedorInput{
+        nombre: String!
+        apellido: String!
+        direccion: String!
         email: String!
         telefono: String
     }
@@ -132,6 +156,13 @@ const typeDefs = gql`
         mejoresClientes: [TopCliente]
         mejoresVendedores: [TopVendedor]
         buscarProducto(texto: String!) : [Producto]
+
+        #BajoStock
+        bajoStock:[Producto]
+
+        #Proveedores
+        obtenerProveedores:[Proveedor]
+        obtenerProveedor(id:ID!):Proveedor
     }
 
     type Mutation {
@@ -153,6 +184,11 @@ const typeDefs = gql`
         nuevoPedido(input: PedidoInput): Pedido
         actualizarPedido(id: ID!, input: PedidoInput ) : Pedido
         eliminarPedido(id: ID!) : String
+
+        #Proveedores
+        nuevoProveedor(input: ProveedorInput):Proveedor
+        actualizarProveedor(id:ID!,input:ProveedorInput):Proveedor
+        eliminarProveedor(id: ID!) : String
     }
 `;
 

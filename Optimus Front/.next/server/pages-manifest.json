@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/pedidos": "pages/pedidos.js",
-  "/productos": "pages/productos.js"
+  "/mejoresclientes": "pages/mejoresclientes.js",
+  "/bajoStock": "pages/bajoStock.js"
 }

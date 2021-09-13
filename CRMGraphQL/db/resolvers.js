@@ -2,6 +2,7 @@ const Usuario = require('../models/Usuario');
 const Producto = require('../models/Producto');
 const Cliente = require('../models/Cliente');
 const Pedido = require('../models/Pedido');
+const Proveedor = require('../models/Proveedor');
 
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -47,6 +48,14 @@ const resolvers = {
                 console.log(error);
             }
         }, 
+        obtenerProveedores: async () => {
+            try {
+                const proveedores = await Proveedor.find({});
+                return proveedores;
+            } catch (error) {
+                console.log(error);
+            }
+        }, 
         obtenerClientesVendedor: async (_, {}, ctx ) => {
             try {
                 const clientes = await Cliente.find({ vendedor: ctx.usuario.id.toString() });
@@ -69,7 +78,19 @@ const resolvers = {
             }
 
             return cliente;
-        }, 
+        },
+        obtenerProveedor: async (_, { id }, ctx) => {
+            // Revisar si el cliente existe o no
+            const proveedor = await Proveedor.findById(id);
+
+            if(!proveedor) {
+                throw new Error('Proveedor no encontrado');
+            }
+
+            
+
+            return proveedor;
+        },  
         obtenerPedidos: async () => {
             try {
                 const pedidos = await Pedido.find({});
@@ -134,6 +155,12 @@ const resolvers = {
 
             return clientes;
         }, 
+        bajoStock: async() => {
+            const productos = await Producto.find({existencia:{$lt:30}}).sort({ existencia : 1 })
+
+            return productos;
+        },
+       
         mejoresVendedores: async () => {
             const vendedores = await Pedido.aggregate([
                 { $match : { estado : "COMPLETADO"} },
@@ -160,10 +187,11 @@ const resolvers = {
             return vendedores;
         },
         buscarProducto: async(_, { texto }) => {
-            const productos = await Producto.find({ $text: { $search: texto  } }).limit(10)
-
+            const productos = await Producto.find({ $text: { $search: texto  } }).limit(10).sort({ existencia : -1 })
+          
             return productos;
-        }
+        },
+        
     }, 
     Mutation: {
         nuevoUsuario: async (_, { input } ) => {
@@ -285,6 +313,32 @@ const resolvers = {
                 console.log(error);
             }
         },
+        nuevoProveedor: async (_, { input }, ctx) => {
+
+            console.log(ctx);
+
+            const { email } = input
+            // Verificar si el proveedor ya esta registrado
+            // console.log(input);
+
+            const proveedor = await Proveedor.findOne({ email });
+            if(proveedor) {
+                throw new Error('Este proveedor ya esta registrado');
+            }
+
+            const nuevoProveedor = new Proveedor(input);
+
+            
+            // guardarlo en la base de datos
+
+            try {
+                const resultado = await nuevoProveedor.save();
+                return resultado;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        
         actualizarCliente: async (_, {id, input}, ctx) => {
             // Verificar si existe o no
             let cliente = await Cliente.findById(id);
@@ -302,6 +356,19 @@ const resolvers = {
             cliente = await Cliente.findOneAndUpdate({_id : id}, input, {new: true} );
             return cliente;
         },
+        actualizarProveedor: async (_, {id, input}) => {
+            // revisar si el producto existe o no
+            let proveedor = await Proveedor.findById(id);
+
+            if(!proveedor) {
+                throw new Error('proveedor no encontrado');
+            }
+
+            // guardarlo en la base de datos
+            proveedor = await Proveedor.findOneAndUpdate({ _id : id }, input, { new: true } );
+
+            return proveedor;
+        }, 
         eliminarCliente : async (_, {id}, ctx) => {
             // Verificar si existe o no
             let cliente = await Cliente.findById(id);
@@ -318,6 +385,20 @@ const resolvers = {
             // Eliminar Cliente
             await Cliente.findOneAndDelete({_id : id});
             return "Cliente Eliminado"
+        },
+        eliminarProveedor : async (_, {id}, ctx) => {
+            // Verificar si existe o no
+            let proveedor = await Proveedor.findById(id);
+
+            if(!proveedor) {
+                throw new Error('Ese proveedor no existe');
+            }
+
+    
+
+            // Eliminar Cliente
+            await Proveedor.findOneAndDelete({_id : id});
+            return "Proveedor Eliminado"
         },
         nuevoPedido: async (_, {input}, ctx) => {
 
